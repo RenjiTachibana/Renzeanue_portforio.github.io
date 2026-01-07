@@ -39,31 +39,47 @@
   <main>
     <section id="gallery">
       <h2>Gallery</h2>
+      <div class="gallery-tabs">
+        <button class="gallery-tab active" data-category="all">All</button>
+        <button class="gallery-tab" data-category="fanart">Fanart</button>
+        <button class="gallery-tab" data-category="original">Original</button>
+        <button class="gallery-tab" data-category="works">Works</button>
+      </div>
       <div class="gallery-container">
-        <div class="gallery-item">
+        <div class="gallery-item" data-category="fanart">
           <img src="images/Chino_prince.png" alt="ギャラリー1">
           <div class="gallery-title">Starry Sky Noble<br>CHINO(VALIS) Fanart</div>
         </div>
-        <div class="gallery-item">
+        <div class="gallery-item" data-category="fanart">
           <img src="images/VALIS_Summer.jpg" alt="ギャラリー3">
           <div class="gallery-title">Hot Girls Summer!!<br>VALIS Fanart</div>
         </div>
-        <div class="gallery-item">
+        <div class="gallery-item" data-category="fanart">
           <img src="images/Rara_moment.jpg" alt="ギャラリー4">
           <div class="gallery-title">This moment!<br>RARA(VALIS) Fanart</div>
         </div>
-        <div class="gallery-item">
+        <div class="gallery-item" data-category="fanart">
           <img src="images/Myu_Carmen.jpg" alt="ギャラリー5">
           <div class="gallery-title">Fatal Scarlet<br>MYU(VALIS) Fanart</div>
         </div>
-        <div class="gallery-item">
+        <div class="gallery-item" data-category="fanart">
           <img src="images/Vitte_BlackSwan.jpg" alt="ギャラリー6">
           <div class="gallery-title">βlack Swan<br>VITTE(VALIS) Fanart</div>
         </div>
-        <div class="gallery-item">
+        <div class="gallery-item" data-category="fanart">
           <img src="images/VALIS_flowers.jpg" alt="ギャラリー7">
           <div class="gallery-title">Flowers of blessing<br>VALIS Fanart</div>
         </div>
+        <!-- ここにoriginal, worksカテゴリの画像を追加してください。例：
+        <div class="gallery-item" data-category="original"> 
+          <img src="images/original_sample.jpg" alt="オリジナル1">
+          <div class="gallery-title">オリジナル作品タイトル</div>
+        </div>
+        <div class="gallery-item" data-category="works">
+          <img src="images/works_sample.jpg" alt="ワークス1">
+          <div class="gallery-title">お仕事作品タイトル</div>
+        </div>
+        -->
       </div>
     </section>
     <section id="about">
@@ -132,6 +148,24 @@
       timer = setInterval(autoSlide, 3500);
     }
     timer = setInterval(autoSlide, 3500);
+
+    // ===== ギャラリーカテゴリ切り替え =====
+    const galleryTabs = document.querySelectorAll('.gallery-tab');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    galleryTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelector('.gallery-tab.active').classList.remove('active');
+        tab.classList.add('active');
+        const cat = tab.getAttribute('data-category');
+        galleryItems.forEach(item => {
+          if (cat === 'all' || item.getAttribute('data-category') === cat) {
+            item.removeAttribute('hidden');
+          } else {
+            item.setAttribute('hidden', '');
+          }
+        });
+      });
+    });
   </script>
 </body>
 </html>
